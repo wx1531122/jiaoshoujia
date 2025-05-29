@@ -153,6 +153,19 @@ cython_debug/
 *.tfstate
 *.tfstate.backup
 
-# Custom
+# Custom Backend
 backend/.venv/
 backend/.env
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+frontend/.eslintcache
+frontend/coverage/
