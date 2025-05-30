@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { RegisterForm } from '../../components/auth/RegisterForm';
-import { useAuth } from '../../contexts/AuthContext';
-import { LoadingSpinner } from '../../components/common/LoadingSpinner'; // Optional spinner
+import { RegisterForm } from '../components/auth/RegisterForm';
+import { useAuth } from '../contexts/AuthContext';
+import { LoadingSpinner } from '../components/common/LoadingSpinner'; // Optional spinner
 
 const RegisterPage: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();

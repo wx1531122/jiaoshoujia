@@ -3,11 +3,10 @@ import React, {
   useContext,
   useState,
   useEffect,
-  ReactNode,
-  Dispatch,
-  SetStateAction,
-} from 'react';
-import AuthService, { User, LoginCredentials, AuthToken } from '../services/authService'; // Assuming AuthToken is exported if needed for token state
+} from 'react'; // 保留值的导入
+import type { ReactNode, Dispatch, SetStateAction } from 'react'; // 将仅类型的成员用 import type 导入
+import AuthService from '../services/authService'; // AuthService 是值，正常导入
+import type { User, LoginCredentials, AuthToken } from '../services/authService'; // User, LoginCredentials, AuthToken 是类型，使用 import type
 import apiClient from '../services/apiClient'; // For direct localStorage interaction in case of token change
 
 // 1. Define AuthState Interface

@@ -1,107 +1,107 @@
 annotated-types==0.7.0
 anyio==4.9.0
-backports.tarfile==1.2.0
+# backports.tarfile==1.2.0 # 通常用于旧版本Python兼容性，Poetry可能引入
 bcrypt==4.3.0
 blinker==1.7.0
-build==1.2.2.post1
-CacheControl==0.14.3
-cachetools==5.5.2
+# build==1.2.2.post1 # Python包构建工具，非运行时依赖
+CacheControl==0.14.3 # HTTP缓存控制
+cachetools==5.5.2 # 缓存工具
 certifi==2025.4.26
 cffi==1.17.1
-chardet==5.2.0
-charset-normalizer==3.4.2
-cleo==2.1.0
-click==8.1.8
-colorama==0.4.6
-coverage==7.8.0
-crashtest==0.4.1
+chardet==5.2.0 # 字符集检测，requests的依赖
+charset-normalizer==3.4.2 # 字符集检测，requests的依赖
+# cleo==2.1.0 # Poetry的依赖，CLI库，非运行时依赖
+click==8.1.8 # FastAPI (Typer) 可能使用
+colorama==0.4.6 # 跨平台彩色终端输出
+# coverage==7.8.0 # 测试覆盖率工具，非运行时依赖
+# crashtest==0.4.1 # Poetry的依赖，非运行时依赖
 cryptography==41.0.7
-dbus-python==1.3.2
-distlib==0.3.9
-distro==1.9.0
-distro-info==1.7+build1
-dulwich==0.22.8
-ecdsa==0.19.1
-exceptiongroup==1.2.2
+# dbus-python==1.3.2 # Linux特有的D-Bus库, Windows不兼容
+# distlib==0.3.9 # Poetry/build的依赖，非运行时依赖
+# distro==1.9.0 # Linux发行版信息，Windows不需要
+# distro-info==1.7+build1 # Linux发行版信息，Windows不兼容且版本格式特殊
+# dulwich==0.22.8 # Poetry的依赖，Git的Python实现，非运行时依赖
+ecdsa==0.19.1 # python-jose的依赖
+exceptiongroup==1.2.2 # anyio的依赖或Python 3.11+的特性
 fastapi==0.115.12
-fastjsonschema==2.21.1
-filelock==3.18.0
-findpython==0.6.3
-greenlet==3.2.2
-gyp==0.1
-h11==0.16.0
-httpcore==1.0.9
-httplib2==0.20.4
-httptools==0.6.4
-httpx==0.28.1
-idna==3.10
-importlib_metadata==8.7.0
-iniconfig==2.1.0
-installer==0.7.0
-jaraco.classes==3.4.0
-jaraco.context==6.0.1
-jaraco.functools==4.1.0
-jeepney==0.9.0
-keyring==25.6.0
-launchpadlib==1.11.0
-lazr.restfulclient==0.14.6
-lazr.uri==1.0.6
-more-itertools==10.7.0
-msgpack==1.1.0
-oauthlib==3.2.2
-packaging==25.0
-passlib==1.7.4
-pbs-installer==2025.4.9
-pkginfo==1.12.1.2
-platformdirs==4.3.7
-pluggy==1.5.0
-poetry==2.1.0
-poetry-core==2.1.0
-psycopg2-binary==2.9.10
-pyasn1==0.6.1
-pycparser==2.22
+fastjsonschema==2.21.1 # Pydantic可能使用
+# filelock==3.18.0 # Poetry/virtualenv的依赖，非运行时依赖
+# findpython==0.6.3 # Poetry的依赖，非运行时依赖
+greenlet==3.2.2 # SQLAlchemy异步可能需要
+# gyp==0.1 # 构建工具，不太可能是FastAPI运行时依赖
+h11==0.16.0 # HTTP/1.1库，uvicorn/httpx依赖
+httpcore==1.0.9 # httpx的依赖
+# httplib2==0.20.4 # 旧的HTTP客户端，若非核心依赖可移除
+httptools==0.6.4 # uvicorn的依赖
+httpx==0.28.1 # 现代HTTP客户端
+idna==3.10 # requests/httpx的依赖
+importlib_metadata==8.7.0 # 读取包元数据
+# iniconfig==2.1.0 # pytest的依赖，非运行时依赖
+# installer==0.7.0 # Poetry/build的依赖，非运行时依赖
+# jaraco.classes==3.4.0 # Poetry/keyring的开发依赖
+# jaraco.context==6.0.1 # Poetry/keyring的开发依赖
+# jaraco.functools==4.1.0 # Poetry/keyring的开发依赖
+# jeepney==0.9.0 # Linux D-Bus相关, keyring在Linux上的依赖
+# keyring==25.6.0 # Poetry的依赖，用于访问系统密钥环，非web应用运行时依赖
+# launchpadlib==1.11.0 # 非常特定的库，不太可能用于此应用
+# lazr.restfulclient==0.14.6 # launchpadlib的依赖
+# lazr.uri==1.0.6 # launchpadlib的依赖
+# more-itertools==10.7.0 # 额外的迭代工具，除非明确使用，否则可移除
+msgpack==1.1.0 # CacheControl的依赖
+# oauthlib==3.2.2 # OAuth库, 此应用使用JWT, 可能不需要
+packaging==25.0 # 处理Python包元数据和依赖
+passlib==1.7.4 # 密码哈希
+# pbs-installer==2025.4.9 # 构建工具，非运行时依赖
+# pkginfo==1.12.1.2 # Poetry的依赖，非运行时依赖
+platformdirs==4.3.7 # 获取平台特定目录
+# pluggy==1.5.0 # pytest的依赖，非运行时依赖
+# poetry==2.1.0 # 项目管理工具本身，非运行时依赖
+# poetry-core==2.1.0 # poetry的核心，非运行时依赖
+# psycopg2-binary==2.9.10 # PostgreSQL驱动。如果使用SQLite，请注释掉此行。如果使用PostgreSQL，请取消注释。
+pyasn1==0.6.1 # python-jose/cryptography的依赖
+pycparser==2.22 # cffi的依赖
 pydantic==2.11.5
 pydantic-settings==2.9.1
 pydantic_core==2.33.2
-PyGObject==3.48.2
-PyJWT==2.7.0
-pyparsing==3.1.1
-pypi-timemachine==0.2
-pyproject-api==1.9.0
-pyproject_hooks==1.2.0
-pytest==8.3.5
-pytest-cov==6.1.1
-pytest-json-report==1.5.0
-pytest-metadata==3.1.1
-python-apt==2.7.7+ubuntu4
-python-dotenv==1.1.0
-python-jose==3.5.0
-PyYAML==6.0.2
-RapidFuzz==3.13.0
+# PyGObject==3.48.2 # Linux桌面GUI库，Windows不兼容
+# PyJWT==2.7.0 # JWT库, 但项目中已使用python-jose
+pyparsing==3.1.1 # packaging的依赖
+# pypi-timemachine==0.2 # 测试工具，非运行时依赖
+# pyproject-api==1.9.0 # 构建工具，非运行时依赖
+# pyproject_hooks==1.2.0 # 构建工具，非运行时依赖
+# pytest==8.3.5 # 测试框架，非运行时依赖
+# pytest-cov==6.1.1 # 测试覆盖率，非运行时依赖
+# pytest-json-report==1.5.0 # pytest插件，非运行时依赖
+# pytest-metadata==3.1.1 # pytest插件，非运行时依赖
+# python-apt==2.7.7+ubuntu4 # Linux apt包管理，Windows不兼容
+# python-dotenv==1.1.0 # pydantic-settings已处理.env文件
+python-jose==3.5.0 # JWT库
+PyYAML==6.0.2 # YAML解析器，一些工具可能需要
+# RapidFuzz==3.13.0 # Poetry的依赖，模糊字符串匹配，非运行时依赖
 requests==2.32.3
-requests-toolbelt==1.0.0
-rsa==4.9.1
-SecretStorage==3.3.3
-shellingham==1.5.4
-six==1.16.0
-sniffio==1.3.1
+# requests-toolbelt==1.0.0 # Poetry的依赖，requests的工具集，非运行时依赖
+rsa==4.9.1 # python-jose的依赖
+# SecretStorage==3.3.3 # Poetry/keyring的依赖 (Linux Keyring)，非web应用运行时依赖
+# shellingham==1.5.4 # Poetry的依赖，检测shell环境，非运行时依赖
+six==1.16.0 # Python 2/3兼容库
+sniffio==1.3.1 # anyio/httpx的依赖
 SQLAlchemy==2.0.41
-ssh-import-id==5.11
-starlette==0.46.2
-tomli==2.2.1
-tomlkit==0.13.2
-tornado==6.4.2
-tox==4.25.0
-trove-classifiers==2025.5.1.12
-typing-inspection==0.4.1
+# ssh-import-id==5.11 # Linux特有的SSH工具
+starlette==0.46.2 # FastAPI的核心
+tomli==2.2.1 # TOML解析器
+# tomlkit==0.13.2 # Poetry的依赖，TOML库，非运行时依赖
+# tornado==6.4.2 # 异步网络库, uvicorn会处理其事件循环, 通常不需要额外指定
+# tox==4.25.0 # 测试自动化工具，非运行时依赖
+# trove-classifiers==2025.5.1.12 # Poetry/build的依赖，非运行时依赖
+typing-inspection==0.4.1 # Pydantic可能使用
 typing_extensions==4.13.2
-unattended-upgrades==0.1
-urllib3==2.4.0
+# unattended-upgrades==0.1 # Linux特有的自动更新服务
+urllib3==2.4.0 # requests的依赖
 uvicorn==0.34.2
-uvloop==0.21.0
-virtualenv==20.31.1
-wadllib==1.3.6
-watchfiles==1.0.5
-websockets==15.0.1
-zipp==3.21.0
-zstandard==0.23.0
+# uvloop==0.21.0 # 高性能事件循环, Linux上效果更佳, Windows上可选但有时会出问题
+# virtualenv==20.31.1 # Poetry的依赖，虚拟环境管理，非运行时依赖
+# wadllib==1.3.6 # launchpadlib的依赖
+watchfiles==1.0.5 # uvicorn --reload 功能需要
+websockets==15.0.1 # uvicorn/starlette的Websocket支持
+zipp==3.21.0 # importlib_metadata的依赖
+# zstandard==0.23.0 # Poetry的依赖，压缩库，非运行时依赖

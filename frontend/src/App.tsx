@@ -1,25 +1,19 @@
+// 文件: frontend/src/App.tsx
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
-import { AppRouter } from './router'; // Assuming router/index.tsx exports AppRouter
-import './App.css'; // Keep existing global styles from Vite, can be modified later
-// import './index.css'; // Or if you prefer to use index.css as the main global stylesheet
+import { AuthProvider } from './contexts/AuthContext'; // 假设路径已修正
+import { AppRouter } from './router'; // 假设路径已修正
+import './App.css';
 
 function App() {
   return (
-    <React.StrictMode>
+    // <React.StrictMode> // <-- 移除这一行
       <BrowserRouter>
         <AuthProvider>
-          {/* 
-            Optional: A global layout component could wrap AppRouter here,
-            e.g., <Layout><AppRouter /></Layout>
-            This might include a navigation bar, footer, etc.
-            For now, AppRouter is rendered directly.
-          */}
           <AppRouter />
         </AuthProvider>
       </BrowserRouter>
-    </React.StrictMode>
+    // </React.StrictMode> // <-- 移除这一行
   );
 }
 

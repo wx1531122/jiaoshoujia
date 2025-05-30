@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { LoginForm } from '../../components/auth/LoginForm';
-import { useAuth } from '../../contexts/AuthContext';
-import { LoadingSpinner } from '../../components/common/LoadingSpinner'; // Optional spinner
+import { LoginForm } from '../components/auth/LoginForm';
+import { useAuth } from '../contexts/AuthContext';
+import { LoadingSpinner } from '../components/common/LoadingSpinner'; // Optional spinner
 
 const LoginPage: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();

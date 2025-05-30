@@ -1,5 +1,7 @@
-import React, { useState, FormEvent } from 'react';
-import AuthService, { RegistrationData } from '../../../services/authService';
+import React, { useState } from 'react';
+import type { FormEvent } from 'react'; // 将 FormEvent 标记为仅类型导入
+import AuthService from '../../services/authService'; // 假设路径已修正
+import type { RegistrationData } from '../../services/authService'; // 假设路径已修正
 // Optional: import { useNavigate } from 'react-router-dom';
 // Optional: import { useAuth } from '../../../contexts/AuthContext';
 

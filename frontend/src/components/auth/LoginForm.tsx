@@ -1,5 +1,6 @@
-import React, { useState, FormEvent } from 'react';
-import { useAuth } from '../../../contexts/AuthContext';
+import React, { useState } from 'react';
+import type { FormEvent } from 'react'; // 将 FormEvent 标记为仅类型导入
+import { useAuth } from '../../contexts/AuthContext';
 // Optional: import { useNavigate } from 'react-router-dom';
 
 export const LoginForm = () => {
