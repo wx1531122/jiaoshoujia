@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 # Attempt to import actual settings, fallback to placeholder
 actual_settings_imported = False
 try:
-    from backend.app.core.config import settings
+    from app.core.config import settings # Assuming 'app' is a package
     actual_settings_imported = True
     print("Successfully imported actual settings in database.py.")
 except ImportError as e:

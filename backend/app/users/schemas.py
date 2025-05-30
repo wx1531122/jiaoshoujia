@@ -13,6 +13,11 @@ class UserCreate(UserBase):
 class UserRead(UserBase):
     id: int
     is_active: bool
+    # Add fields from User model that should be in the read schema
+    is_verified_email: bool = False # Default to False if not always present or to match model
+    # email_verification_token: Optional[str] = None # Usually not exposed
+    # password_reset_token: Optional[str] = None # Usually not exposed
+    # password_reset_token_expiry: Optional[datetime] = None # Usually not exposed
     created_at: datetime
     updated_at: datetime
 
@@ -38,3 +43,17 @@ class TokenData(BaseModel):
 class LoginCredentials(BaseModel):
     username: str
     password: str
+
+# Password Reset and Email Verification Schemas
+class RequestPasswordResetSchema(BaseModel):
+    email: EmailStr
+
+class ResetPasswordSchema(BaseModel):
+    token: str
+    new_password: str
+
+class RequestEmailVerificationSchema(BaseModel):
+    email: EmailStr # Or identify user by ID if they are logged in but unverified
+
+class MessageSchema(BaseModel): # Generic message response
+    message: str
