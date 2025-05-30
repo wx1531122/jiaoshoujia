@@ -86,7 +86,7 @@
     *   功能: 包裹 `AuthProvider` 和 `AppRoutes`。
 8.  **`.env.development` / `.env.production`:** 存放 `VITE_API_BASE_URL`。
 
-**阶段一成果:**
+**阶段一成果:** Status: COMPLETED
 一个可以运行的前后端应用，支持用户注册、登录，受保护的页面，JWT认证。项目结构基本成型。
 
 ---
@@ -94,70 +94,72 @@
 **阶段二: 增强用户体验与功能**
 
 **目标:** 完善认证流程 (密码重置、邮箱验证)，添加基础的数据库迁移，提供更好的错误处理和通知，构建基本应用布局。
+**Status: COMPLETED**
 
 **后端模块 (Python)**
 
-1.  **数据库迁移 (集成 Alembic):**
-    *   **`alembic/` 目录:** Alembic 环境配置和版本脚本。
-    *   `User` 模型中增加 `is_verified_email` (Boolean, default False), `email_verification_token`, `password_reset_token`, `password_reset_token_expiry` 字段。
-2.  **`core/` 目录:**
+1.  **数据库迁移 (集成 Alembic): Status: COMPLETED**
+    *   **`alembic/` 目录:** Alembic 环境配置和版本脚本。**Status: COMPLETED**
+    *   `User` 模型中增加 `is_verified_email` (Boolean, default False), `email_verification_token`, `password_reset_token`, `password_reset_token_expiry` 字段。**Status: COMPLETED** (Manual migration script created)
+2.  **`core/` 目录: Status: COMPLETED**
     *   **`dependencies.py`:**
-        *   模块: `get_current_active_user` (FastAPI依赖项)
-        *   功能: 从Token中获取用户，并检查是否 active。改进 `/me` 路由使用此依赖。
+        *   模块: `get_current_active_user` (FastAPI依赖项) **Status: COMPLETED**
+        *   功能: 从Token中获取用户，并检查是否 active。改进 `/me` 路由使用此依赖。**Status: COMPLETED**
     *   **`exceptions.py`:**
-        *   模块: 自定义异常类 (如 `CredentialsException`, `UserNotFoundException`)
-        *   功能: 更清晰的错误类型。
+        *   模块: 自定义异常类 (如 `CredentialsException`, `UserNotFoundException`) **Status: COMPLETED**
+        *   功能: 更清晰的错误类型。**Status: COMPLETED**
     *   **`error_handlers.py` (或在 `main.py` 中):**
-        *   模块: 全局异常处理器
-        *   功能: 捕获自定义异常和HTTPException，返回统一JSON格式错误。
+        *   模块: 全局异常处理器 **Status: COMPLETED**
+        *   功能: 捕获自定义异常和HTTPException，返回统一JSON格式错误。**Status: COMPLETED**
     *   **`email_service.py`:**
-        *   模块: `EmailService` (使用 `python-emails` 或 `fastapi-mail`)
-        *   功能: 发送邮件的通用方法 (用于邮箱验证、密码重置)。配置从 `config.py` 读取SMTP设置。
-3.  **`users/` (或 `auth/`) 模块/目录 (增强):**
-    *   **`schemas.py` (新增):** `RequestPasswordResetSchema`, `ResetPasswordSchema`.
+        *   模块: `EmailService` (使用 `fastapi-mail`) **Status: COMPLETED**
+        *   功能: 发送邮件的通用方法 (用于邮箱验证、密码重置)。配置从 `config.py` 读取SMTP设置。**Status: COMPLETED**
+3.  **`users/` (或 `auth/`) 模块/目录 (增强): Status: COMPLETED**
+    *   **`schemas.py` (新增):** `RequestPasswordResetSchema`, `ResetPasswordSchema`, `RequestEmailVerificationSchema`, `MessageSchema`. **Status: COMPLETED**
     *   **`crud.py` (新增):**
-        *   设置/清除邮箱验证token (`set_email_verification_token`, `verify_email_by_token`)。
-        *   设置/清除密码重置token (`set_password_reset_token`, `reset_password_by_token`)。
+        *   设置/清除邮箱验证token (`set_email_verification_token`, `verify_user_by_email_token`)。**Status: COMPLETED**
+        *   设置/清除密码重置token (`set_password_reset_token`, `reset_password_by_token`, `get_user_by_password_reset_token`)。**Status: COMPLETED**
     *   **`router.py` (新增端点):**
-        *   `/request-password-reset` (POST): 请求密码重置邮件。
-        *   `/reset-password/{token}` (POST): 使用token重置密码。
-        *   `/verify-email/{token}` (GET): 验证邮箱。
-        *   `/logout` (POST, 可选): 如果JWT需要服务器端失效 (通常不需要，前端清除即可)。
+        *   `/request-password-reset` (POST): 请求密码重置邮件。**Status: COMPLETED**
+        *   `/reset-password` (POST): 使用token重置密码。**Status: COMPLETED** (Path is `/reset-password`, token in body)
+        *   `/verify-email/{token}` (GET): 验证邮箱。**Status: COMPLETED** (Path is `/verify-email/{token}`)
+        *   `/request-email-verification` (POST): 请求新的验证邮件。**Status: COMPLETED**
+    *   `/logout` (POST, 可选): 如果JWT需要服务器端失效 (通常不需要，前端清除即可)。**Status: NOT IMPLEMENTED (Optional)**
 
 **前端模块 (React)**
 
-1.  **`src/components/layout/` 目录:**
-    *   **`AuthLayout.tsx`:** 用于登录、注册等页面的简单居中布局。
+1.  **`src/components/layout/` 目录: Status: COMPLETED**
+    *   **`AuthLayout.tsx`:** 用于登录、注册等页面的简单居中布局。**Status: COMPLETED**
     *   **`DashboardLayout.tsx`:**
-        *   模块: `DashboardLayout`
-        *   功能: 包含顶部导航栏 (Navbar) 和主要内容区域。退出按钮在Navbar。
+        *   模块: `DashboardLayout` **Status: COMPLETED**
+        *   功能: 包含顶部导航栏 (Navbar) 和主要内容区域。退出按钮在Navbar。**Status: COMPLETED**
     *   **`Navbar.tsx`:**
-        *   模块: `Navbar`
-        *   功能: 显示应用Logo/名称，用户头像/名称，登出按钮。
-2.  **`src/components/auth/` 目录 (新增):**
-    *   **`RequestPasswordResetForm.tsx`**
-    *   **`ResetPasswordForm.tsx`**
-3.  **`src/components/common/` (新增/增强):**
+        *   模块: `Navbar` **Status: COMPLETED**
+        *   功能: 显示应用Logo/名称，用户头像/名称，登出按钮。**Status: COMPLETED**
+2.  **`src/components/auth/` 目录 (新增): Status: COMPLETED**
+    *   **`RequestPasswordResetForm.tsx`** **Status: COMPLETED**
+    *   **`ResetPasswordForm.tsx`** **Status: COMPLETED**
+3.  **`src/components/common/` (新增/增强): Status: COMPLETED**
     *   **`Notification.tsx` (或集成 `react-toastify` / `notistack`):**
-        *   模块: Toast/Notification 系统
-        *   功能: 显示成功、错误、信息提示。
-    *   **`Modal.tsx` (可选，如果需要弹出确认框等):** 简单的模态框组件。
-4.  **`src/pages/` 目录 (新增/修改):**
-    *   **`RequestPasswordResetPage.tsx`**
-    *   **`ResetPasswordPage.tsx`**
-    *   **`EmailVerificationPage.tsx`:** 显示验证状态或提示检查邮箱。
-    *   修改登录/注册页面使用 `AuthLayout`。
-    *   修改 `HomePage`, `ProfilePage` 等使用 `DashboardLayout`。
-5.  **`src/services/authService.ts` (增强):**
-    *   添加调用新后端端点的函数。
-6.  **`src/contexts/AuthContext.tsx` (或 store) (增强):**
-    *   在 `login` 成功后，可以将用户信息存储起来，如 `user` 对象。
-    *   `logout` 方法清除 localStorage 中的 token 和用户状态。
+        *   模块: Toast/Notification 系统 **Status: COMPLETED** (Component created)
+        *   功能: 显示成功、错误、信息提示。**Status: COMPLETED**
+    *   **`Modal.tsx` (可选，如果需要弹出确认框等):** 简单的模态框组件。**Status: NOT IMPLEMENTED (Optional)**
+4.  **`src/pages/` 目录 (新增/修改): Status: COMPLETED**
+    *   **`RequestPasswordResetPage.tsx`** **Status: COMPLETED**
+    *   **`ResetPasswordPage.tsx`** **Status: COMPLETED**
+    *   **`EmailVerificationPage.tsx`:** 显示验证状态或提示检查邮箱。**Status: COMPLETED**
+    *   修改登录/注册页面使用 `AuthLayout`。**Status: COMPLETED**
+    *   修改 `HomePage`, `ProfilePage` 等使用 `DashboardLayout`。**Status: COMPLETED**
+5.  **`src/services/authService.ts` (增强): Status: COMPLETED**
+    *   添加调用新后端端点的函数。**Status: COMPLETED**
+6.  **`src/contexts/AuthContext.tsx` (或 store) (增强): Status: COMPLETED**
+    *   在 `login` 成功后，可以将用户信息存储起来，如 `user` 对象。**Status: COMPLETED** (Already part of Phase 1, verified `is_verified_email` field is accessible)
+    *   `logout` 方法清除 localStorage 中的 token 和用户状态。**Status: COMPLETED** (Already part of Phase 1)
 7.  **`src/utils/` 目录 (可选):**
-    *   **`formValidators.ts`:** 常用的表单验证规则。
+    *   **`formValidators.ts`:** 常用的表单验证规则。**Status: NOT IMPLEMENTED (Optional)**
 
-**阶段二成果:**
-用户认证流程更完整，有数据库迁移支持，错误处理和用户反馈更好，应用有了基本的导航和布局。
+**阶段二成果:** Status: COMPLETED
+用户认证流程更完整 (邮箱验证、密码重置)，有数据库迁移支持 (手动脚本创建)，错误处理和用户反馈更好 (自定义异常、错误处理中间件、通知组件概念)，应用有了基本的导航和布局。
 
 ---
 

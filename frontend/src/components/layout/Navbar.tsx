@@ -1,7 +1,7 @@
 // frontend/src/components/layout/Navbar.tsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext'; // Adjust path as needed
+import { useAuth } from '../../contexts/AuthContext'; 
 
 export const Navbar: React.FC = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -30,6 +30,11 @@ export const Navbar: React.FC = () => {
             <span style={{ marginRight: '15px' }}>
               Hello, {user.username || user.email}
             </span>
+            {user && !user.is_verified_email && (
+              <span style={{ marginRight: '15px', color: 'orange', fontSize: '0.9em' }}>
+                (Email not verified)
+              </span>
+            )}
             <Link to="/profile" style={{ color: 'white', marginRight: '15px', textDecoration: 'none' }}>
               Profile
             </Link>
