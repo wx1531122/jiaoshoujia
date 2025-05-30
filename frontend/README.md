@@ -1,54 +1,73 @@
-# React + TypeScript + Vite
+# Frontend Application for Secure User Authentication
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This frontend application is built with React, TypeScript, and Vite. It implements the core user authentication features outlined as Phase 1 in the main project README.
 
-Currently, two official plugins are available:
+## Key Features (Phase 1 Complete)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+*   **User Registration:** New users can register with a username, email, and password.
+*   **User Login:** Registered users can log in to access protected resources.
+*   **JWT Authentication:** Uses JSON Web Tokens (JWT) for managing user sessions. Tokens are stored in localStorage.
+*   **Protected Routes:** Certain routes (e.g., Home, Profile) are protected and require authentication.
+*   **User Profile:** Authenticated users can view their basic profile information.
+*   **API Client:** A dedicated API client (`src/services/apiClient.ts`) using Axios is configured with interceptors to attach JWT tokens to requests and handle basic API errors.
+*   **State Management:** User authentication state is managed globally using React Context (`src/contexts/AuthContext.tsx`).
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+*   React
+*   TypeScript
+*   Vite
+*   React Router DOM for navigation
+*   Axios for API communication
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Project Structure
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The `frontend/src` directory is organized as follows:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+*   **`App.tsx`**: The main application component that sets up routing and context providers.
+*   **`main.tsx`**: The entry point of the application.
+*   **`assets/`**: Static assets like images.
+*   **`components/`**: Reusable UI components.
+    *   `auth/`: Components related to authentication (LoginForm, RegisterForm).
+    *   `common/`: Common components like LoadingSpinner.
+*   **`contexts/`**: React context for global state management (e.g., `AuthContext.tsx`).
+*   **`pages/`**: Top-level page components (LoginPage, RegisterPage, HomePage, ProfilePage).
+*   **`router/`**: Routing configuration, including protected route logic (`index.tsx`, `ProtectedRoute.tsx`).
+*   **`services/`**: Modules for interacting with the backend API (`apiClient.ts`, `authService.ts`).
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Setup and Running the Project
+
+1.  **Navigate to the frontend directory:**
+    ```bash
+    cd frontend
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    # yarn install
+    ```
+
+3.  **Set up environment variables:**
+    Create a `.env.development` file in the `frontend` directory by copying `.env.development.example` (if one exists) or by creating it manually.
+    It should contain the base URL for the backend API:
+    ```env
+    VITE_API_BASE_URL="http://localhost:8000/api/v1"
+    ```
+    Ensure the backend server is running and accessible at this URL.
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    The application will typically be available at `http://localhost:5173`.
+
+## Available Scripts
+
+In the `frontend` directory, you can run the following scripts:
+
+*   **`npm run dev`**: Starts the Vite development server with Hot Module Replacement (HMR).
+*   **`npm run build`**: Compiles TypeScript and builds the application for production.
+*   **`npm run lint`**: Lints the codebase using ESLint.
+*   **`npm run preview`**: Serves the production build locally for preview.
