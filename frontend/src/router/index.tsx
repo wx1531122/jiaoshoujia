@@ -2,29 +2,24 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from './ProtectedRoute';
 
-// Placeholder Page Components
-// These would ideally be in frontend/src/pages/
-// For now, defined inline for simplicity of this routing task.
+// Import existing pages
+import LoginPage from '../pages/LoginPage';
+import RegisterPage from '../pages/RegisterPage';
+import HomePage from '../pages/HomePage';
+import ProfilePage from '../pages/ProfilePage';
 
-const PlaceholderComponent = ({ name }: { name: string }) => (
-  <div>
-    <h2>{name} Page</h2>
-    <p>This is a placeholder for the {name} page.</p>
-    {name === "Home" && <p>This is a protected area.</p>}
-    {name === "Profile" && <p>This is another protected area.</p>}
-  </div>
+// Import new pages for Phase 2
+import RequestPasswordResetPage from '../pages/RequestPasswordResetPage';
+import ResetPasswordPage from '../pages/ResetPasswordPage';
+import EmailVerificationPage from '../pages/EmailVerificationPage';
+
+// A more descriptive NotFoundPage placeholder
+const NotFoundPage = () => (
+    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h2>404 - Page Not Found</h2>
+        <p>Sorry, the page you are looking for does not exist.</p>
+    </div>
 );
-
-// const LoginPage = () => <PlaceholderComponent name="Login" />; // Replaced by actual import
-import LoginPage from '../pages/LoginPage'; // Import the actual LoginPage
-// const RegisterPage = () => <PlaceholderComponent name="Register" />; // Replaced by actual import
-import RegisterPage from '../pages/RegisterPage'; // Import the actual RegisterPage
-// const HomePage = () => <PlaceholderComponent name="Home" />; // Replaced by actual import
-import HomePage from '../pages/HomePage'; // Import the actual HomePage
-// const ProfilePage = () => <PlaceholderComponent name="Profile" />; // Replaced by actual import
-import ProfilePage from '../pages/ProfilePage'; // Import the actual ProfilePage
-const NotFoundPage = () => <PlaceholderComponent name="404 Not Found" />;
-
 
 export const AppRouter: React.FC = () => {
   return (
@@ -32,12 +27,17 @@ export const AppRouter: React.FC = () => {
       {/* Public Routes */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      
+      {/* Phase 2 Public Routes for Password Reset and Email Verification */}
+      <Route path="/request-password-reset" element={<RequestPasswordResetPage />} />
+      <Route path="/reset-password" element={<ResetPasswordPage />} /> 
+      {/* Note: ResetPasswordPage expects token from query param ?token=... */}
+      <Route path="/verify-email" element={<EmailVerificationPage />} />
+      {/* Note: EmailVerificationPage expects token from query param ?token=... */}
 
       {/* Protected Routes */}
-      {/* All routes nested under this <Route> will use ProtectedRoute */}
       <Route path="/" element={<ProtectedRoute />}>
-        {/* Outlet in ProtectedRoute will render these children based on path */}
-        <Route index element={<HomePage />} /> {/* Default child for "/" */}
+        <Route index element={<HomePage />} />
         <Route path="profile" element={<ProfilePage />} />
         {/* Example: <Route path="dashboard" element={<DashboardPage />} /> */}
       </Route>
@@ -48,6 +48,4 @@ export const AppRouter: React.FC = () => {
   );
 };
 
-// Note: BrowserRouter itself should wrap this AppRouter in a higher-level component
-// like App.tsx or main.tsx.
-export default AppRouter; // Default export is also common for the main router config
+export default AppRouter;

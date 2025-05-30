@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LoginForm } from '../components/auth/LoginForm';
 import { useAuth } from '../contexts/AuthContext';
-import { LoadingSpinner } from '../components/common/LoadingSpinner'; // Optional spinner
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
+import { AuthLayout } from '../components/layout/AuthLayout'; // Import AuthLayout
 
 const LoginPage: React.FC = () => {
   const { isAuthenticated, isLoading } = useAuth();
@@ -11,14 +12,11 @@ const LoginPage: React.FC = () => {
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {
-      const from = location.state?.from?.pathname || '/'; // Redirect to intended page or home
+      const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
     }
   }, [isAuthenticated, isLoading, navigate, location]);
 
-  // If AuthContext is still loading or user is already authenticated,
-  // show spinner or a simple loading message.
-  // This prevents the login form from briefly flashing if the user is already logged in.
   if (isLoading || (!isLoading && isAuthenticated)) {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -28,13 +26,15 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div style={{ maxWidth: '400px', margin: 'auto', padding: '20px' }}>
-      <h2>Login</h2>
+    <AuthLayout title="Login to Your Account"> {/* Use AuthLayout */}
       <LoginForm />
       <p style={{ marginTop: '20px', textAlign: 'center' }}>
         Don't have an account? <Link to="/register">Register here</Link>
       </p>
-    </div>
+      <p style={{ marginTop: '10px', textAlign: 'center' }}>
+        <Link to="/request-password-reset">Forgot password?</Link>
+      </p>
+    </AuthLayout>
   );
 };
 
