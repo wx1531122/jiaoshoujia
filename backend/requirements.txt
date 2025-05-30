@@ -24,6 +24,7 @@ cryptography==41.0.7
 ecdsa==0.19.1 # python-jose的依赖
 exceptiongroup==1.2.2 # anyio的依赖或Python 3.11+的特性
 fastapi==0.115.12
+fastapi-mail # Added fastapi-mail
 fastjsonschema==2.21.1 # Pydantic可能使用
 # filelock==3.18.0 # Poetry/virtualenv的依赖，非运行时依赖
 # findpython==0.6.3 # Poetry的依赖，非运行时依赖

@@ -5,12 +5,25 @@ from fastapi.middleware.cors import CORSMiddleware
 # Fallbacks are for ensuring subtask can run if environment is broken.
 users_router_imported = False # Initialize flags
 db_utils_imported = False
+
+# Import Starlette's HTTPException for broader handler registration
+from starlette.exceptions import HTTPException as StarletteHTTPException
+
+# Import custom exceptions and their handlers
+from app.core.exceptions import DetailedHTTPException
+from app.core.error_handlers import (
+    detailed_http_exception_handler,
+    starlette_http_exception_handler
+    # fastapi_http_exception_handler # Not including this one for now
+    # generic_exception_handler 
+)
+
 try:
-    from backend.app.users import router as auth_router
+    from app.users import router as auth_router # Corrected import
     users_router_imported = True
-    from backend.app.db.database import create_db_and_tables
+    from app.db.database import create_db_and_tables # Corrected import
     db_utils_imported = True
-    # Optional: from backend.app.core.config import settings (if needed directly in main)
+    # Optional: from app.core.config import settings (if needed directly in main)
     print("Successfully imported auth_router and create_db_and_tables in main.py.")
 except ImportError as e:
     print(f"Critical Error during import in main.py: {e}. API will be non-functional or limited.")
@@ -31,6 +44,18 @@ app = FastAPI(
     version="0.1.1", # Slightly different version for recovery
     description="This is the recovered backend application."
 )
+
+# Register custom exception handlers
+app.add_exception_handler(DetailedHTTPException, detailed_http_exception_handler)
+# This will handle both FastAPI's HTTPException and Starlette's HTTPException
+# as FastAPI.HTTPException inherits from StarletteHTTPException.
+app.add_exception_handler(StarletteHTTPException, starlette_http_exception_handler)
+# If you needed to handle FastAPI's HTTPException differently than Starlette's (rare),
+# you would register it separately and potentially before StarletteHTTPException,
+# or ensure your handler checks the exact type. For now, starlette_http_exception_handler
+# will cover both, providing consistent formatting.
+# app.add_exception_handler(FastAPIHTTPException, fastapi_http_exception_handler) 
+# app.add_exception_handler(Exception, generic_exception_handler) # Generic fallback
 
 # CORS Configuration
 origins = [

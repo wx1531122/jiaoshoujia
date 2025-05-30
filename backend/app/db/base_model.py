@@ -9,10 +9,10 @@ from sqlalchemy.sql import func
 
 # Attempt to import Base
 try:
-    from backend.app.db.database import Base
-    print("Successfully imported Base from backend.app.db.database in base_model.py.")
+    from app.db.database import Base # Assuming 'app' is a package
+    print("Successfully imported Base from app.db.database in base_model.py.")
 except ImportError:
-    print("Critical Warning: Could not import Base from backend.app.db.database in base_model.py. This will likely cause issues.")
+    print("Critical Warning: Could not import Base from app.db.database in base_model.py. This will likely cause issues.")
     # Fallback Base if absolutely necessary for subtask to run, though this indicates a problem
     from sqlalchemy.ext.declarative import declarative_base
     Base = declarative_base()
